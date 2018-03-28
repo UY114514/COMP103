@@ -1,0 +1,51 @@
+Loaded 421 earthquakes into list
+----------------------------
+Earthquakes 5.5 and above
+2016p661442 at 17:36:03 UTC, 01/09/2016  mag:5.6 depth:28.6at (179.0390625,-37.05254364) in gisborne
+2016p665372 at 04:30:10 UTC, 03/09/2016  mag:5.5 depth:11.5at (179.1143341,-37.36350632) in gisborne
+2016p666385 at 13:30:26 UTC, 03/09/2016  mag:5.5 depth:17.6at (179.0248871,-37.38977051) in gisborne
+2016p858000 at 11:02:56 UTC, 13/11/2016  mag:7.8 depth:15.1at (173.0221405,-42.6925354) in canterbury
+2016p858032 at 11:19:32 UTC, 13/11/2016  mag:5.9 depth:12.0at (173.6820777,-42.00092451) in wellington-marlborough
+2016p858041 at 11:24:17 UTC, 13/11/2016  mag:5.6 depth:11.6at (173.7394396,-42.03096832) in wellington-marlborough
+2016p858055 at 11:32:06 UTC, 13/11/2016  mag:6.2 depth:28.9at (173.6750561,-42.2810616) in canterbury
+2016p858094 at 11:52:44 UTC, 13/11/2016  mag:6.2 depth:15.2at (173.4362601,-42.13893171) in canterbury
+2016p858279 at 13:31:26 UTC, 13/11/2016  mag:6.0 depth:25.2at (173.6596039,-42.26058734) in canterbury
+2016p859523 at 00:33:51 UTC, 14/11/2016  mag:5.7 depth:15.5at (174.2954589,-41.67435851) in wellington-marlborough
+2016p859524 at 00:34:22 UTC, 14/11/2016  mag:6.3 depth:35.5at (173.3240412,-42.55790834) in canterbury
+2016p860215 at 06:43:00 UTC, 14/11/2016  mag:5.6 depth:23.0at (174.2837886,-41.73240431) in wellington-marlborough
+2016p860224 at 06:47:52 UTC, 14/11/2016  mag:5.7 depth:53.3at (173.9684203,-42.31963026) in canterbury
+2016p860287 at 07:21:04 UTC, 14/11/2016  mag:5.8 depth:23.0at (174.314213,-41.7566522) in wellington-marlborough
+2016p881118 at 00:19:42 UTC, 22/11/2016  mag:5.5 depth:29.1at (177.2288055,-40.67358017) in wellington-marlborough
+2016p881669 at 05:13:33 UTC, 22/11/2016  mag:5.7 depth:10.2at (172.911198,-42.91986434) in canterbury
+2016p913880 at 03:15:47 UTC, 04/12/2016  mag:5.5 depth:12.3at (174.18013,-41.68226242) in wellington-marlborough
+2016p981371 at 02:34:33 UTC, 29/12/2016  mag:5.6 depth:16.0at (174.4618657,-41.54913308) in wellington-marlborough
+------------------------
+Close earthquakes
+2016p439634 and 2017p217600: dist=0.72  depth diff=1.00,  days apart=284
+2016p835066 and 2017p099067: dist=0.66  depth diff=0.70,  days apart=94
+2016p858599 and 2016p865467: dist=0.47  depth diff=0.30,  days apart=3
+2016p859493 and 2016p890609: dist=0.34  depth diff=0.70,  days apart=12
+2016p863723 and 2016p913880: dist=0.92  depth diff=0.40,  days apart=19
+2017p087060 and 2017p190245: dist=0.77  depth diff=0.30,  days apart=38
+----------------------------
+Big earthquakes and their follow-on earthquakes
+------------------------
+2016p858055 at 11:32:06 UTC, 13/11/2016  mag:6.2 depth:28.9at (173.6750561,-42.2810616) in canterbury
+  2016p858160  mag=5.2   days later= 0
+  2016p858279  mag=6.0   days later= 0
+  2016p858516  mag=4.5   days later= 0
+  2016p858527  mag=4.7   days later= 0
+  2016p859920  mag=4.7   days later= 1
+  2016p861632  mag=5.0   days later= 1
+  2016p861850  mag=4.2   days later= 1
+  2016p958399  mag=4.0   days later= 37
+  2017p084950  mag=5.1   days later= 80
+------------------------
+2016p858279 at 13:31:26 UTC, 13/11/2016  mag:6.0 depth:25.2at (173.6596039,-42.26058734) in canterbury
+  2016p858516  mag=4.5   days later= 0
+  2016p858527  mag=4.7   days later= 0
+  2016p859920  mag=4.7   days later= 1
+  2016p861632  mag=5.0   days later= 1
+  2016p958399  mag=4.0   days later= 37
+  2017p084950  mag=5.1   days later= 80
+-------------------------------------
