@@ -192,7 +192,7 @@ public class EarthquakeAnalyser {
                     if (e1.distanceTo(e2) <= 10) {
                         if (Math.abs(e1.getDepth() - e2.getDepth()) > 10) {
                             followOnes.add(e2);
-                            UI.sleep(1000);
+//                            UI.sleep(1000);
                         }
                     }
 
@@ -202,6 +202,7 @@ public class EarthquakeAnalyser {
             if (followOnes.size() >= 2) {
                 UI.println("***********");
                 UI.println(e1.toString());
+                System.out.println(e1.getID());
 //                doPrint = true;
                 for (Earthquake f : followOnes) {
                     UI.println("    " + f.getID() + " [mag]=" + f.getMagnitude() + " [days later]=" + df.format(e1.timeBetween(f) / 86400));
