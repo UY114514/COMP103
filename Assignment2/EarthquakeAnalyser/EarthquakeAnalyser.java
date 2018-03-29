@@ -11,6 +11,7 @@
 import ecs100.*;
 
 import java.awt.Color;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.io.*;
 
@@ -64,12 +65,6 @@ import java.io.*;
 public class EarthquakeAnalyser {
 
     private ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
-//    private static final double EARTH_RADIUS = 6378.137;
-
-/*    private static double rad(double d) {
-        return d * Math.PI / 180.0;
-    }*/
-
 
     /**
      * Construct a new EarthquakeAnalyser object and initialise the interface
@@ -132,22 +127,6 @@ public class EarthquakeAnalyser {
         UI.println("------------------------");
     }
 
-/*    public double getDistance(double longitude1, double latitude1, double longitude2, double latitude2) {
-        double a, b, d, sa2, sb2;
-        latitude1 = rad(latitude1);
-        latitude2 = rad(latitude2);
-        a = latitude1 - latitude2;
-        b = rad(longitude1 - longitude2);
-
-        sa2 = Math.sin(a / 2.0);
-        sb2 = Math.sin(b / 2.0);
-        d = 2 * EARTH_RADIUS
-                * Math.asin(Math.sqrt(sa2 * sa2 + Math.cos(latitude1)
-                * Math.cos(latitude2) * sb2 * sb2));
-        return d;
-//        return;
-    }*/
-
     /**
      * Print all pairs of earthquakes within 1km of each other and within 1km depth from each other
      * and separated by at least 1 day;
@@ -156,7 +135,6 @@ public class EarthquakeAnalyser {
         UI.println("Close earthquakes");
         /*# YOUR CODE HERE */
         int i = 0, j = 1;
-//        double long1, lat1, long2, lat2;
         while (i < earthquakes.size()) {
             while (j < earthquakes.size()) {
                 if (earthquakes.get(i).distanceTo(earthquakes.get(j)) <= 1) {
@@ -168,19 +146,14 @@ public class EarthquakeAnalyser {
                             UI.println("Depth Difference:" + (Math.abs(earthquakes.get(i).getDepth()) - Math.abs(earthquakes.get(j).getDepth())));
                             UI.println("Days Between:" + ((earthquakes.get(i).timeBetween(earthquakes.get(j)) / 86400)));
                             UI.println("-------");
-
                         }
                     }
                 }
-//                System.out.println(i + " " + j);
                 j++;
             }
             j = i + 1;
-//            UI.println(i + " " + j);
             i++;
         }
-
-
         UI.println("----------------------------");
     }
 
@@ -197,6 +170,46 @@ public class EarthquakeAnalyser {
     public void doFindFollowOns() {
         UI.println("Big earthquakes and their follow-on earthquakes");
         /*# YOUR CODE HERE */
+        ArrayList<Earthquake> bigE = new ArrayList<Earthquake>();
+        ArrayList<Earthquake> followOnes = new ArrayList<Earthquake>();
+        DecimalFormat df = new DecimalFormat("0");
+        for (Earthquake e : earthquakes) {
+            if (e.getMagnitude() >= 6.0) {
+                bigE.add(e);
+            }
+        }
+
+        for (Earthquake e1 : bigE) {
+            int i = 0;
+            boolean doPrint = false;
+            followOnes.clear();
+
+
+//            System.out.println(e1.toString());
+            for (Earthquake e2 : earthquakes) {
+//                    System.out.println(e1.getID() + "--" + e2.getID() + " " + e1.timeBetween(e2));
+                if (e1.timeBetween(e2) > 0) {
+                    if (e1.distanceTo(e2) <= 10) {
+                        if (Math.abs(e1.getDepth() - e2.getDepth()) > 10) {
+                            followOnes.add(e2);
+                            UI.sleep(1000);
+                        }
+                    }
+
+                }
+
+            }
+            if (followOnes.size() >= 2) {
+                UI.println("***********");
+                UI.println(e1.toString());
+//                doPrint = true;
+                for (Earthquake f : followOnes) {
+                    UI.println("    " + f.getID() + " [mag]=" + f.getMagnitude() + " [days later]=" + df.format(e1.timeBetween(f) / 86400));
+
+                }
+            }
+        }
+
 
         UI.println("-------------------------------------");
     }
