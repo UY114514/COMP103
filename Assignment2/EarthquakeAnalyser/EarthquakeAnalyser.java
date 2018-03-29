@@ -83,9 +83,7 @@ public class EarthquakeAnalyser {
      * Load data from the data file into the earthquakes field
      */
     public void doLoadData() {
-//        String filename = UIFileChooser.open("Data File");
-        /*For test*/
-        String filename = "C:\\Users\\Yan\\Google Drive\\XMUT\\git_COMP103_Assignments\\COMP103\\Assignment2\\EarthquakeAnalyser\\earthquake-data.txt";
+        String filename = UIFileChooser.open("Data File");
         /*# YOUR CODE HERE */
         this.earthquakes.clear();
         try (Scanner sc = new Scanner(new File(filename))) {
