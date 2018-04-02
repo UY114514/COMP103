@@ -9,6 +9,9 @@
  */
 
 import ecs100.*;
+
+import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.io.*;
 import java.awt.Color;
@@ -88,7 +91,18 @@ public class DominoGame{
      */
     public DominoGame(){
         /*# YOUR CODE HERE */
+        hand = new Domino[NUM_HAND];
+        table = new ArrayList<>();
+        UI.addButton("Pickup", this::doPickup);
+//        UI.addButton("Place",this:: );
+        UI.addButton("Flip", this::doFlipDomino);
+        UI.addButton("Left", this::doMoveLeft);
+        UI.addButton("Right", this::doMoveRight);
+        JButton restart = UI.addButton("Restart", this::doRestart);
+        UI.addButton("Quit", UI::quit);
 
+
+        this.doRestart();
         this.redraw();
     }
 
@@ -99,7 +113,8 @@ public class DominoGame{
      */
     public void doRestart(){
         /*# YOUR CODE HERE */
-
+        this.table.clear();
+        Arrays.fill(hand, null);
         this.redraw();
     }
 
@@ -108,8 +123,18 @@ public class DominoGame{
      * create a new random domino and put it into the first empty position on the hand.
      * (needs to search along the array for an empty position.)
      */
-    public void doPickup(){
+    public void doPickup() {
         /*# YOUR CODE HERE */
+        for (int i = 0; i < this.hand.length; i++) {
+            if (this.hand[i] == null) {
+                this.hand[i] = new Domino();
+                break;
+            }
+
+        }
+
+
+
 
         this.redraw();
     }
