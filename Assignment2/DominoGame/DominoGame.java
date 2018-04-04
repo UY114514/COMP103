@@ -94,12 +94,13 @@ public class DominoGame{
         hand = new Domino[NUM_HAND];
         table = new ArrayList<>();
         UI.addButton("Pickup", this::doPickup);
-//        UI.addButton("Place",this:: );
+        UI.addButton("Place", this::doPlaceDomino);
         UI.addButton("Flip", this::doFlipDomino);
         UI.addButton("Left", this::doMoveLeft);
         UI.addButton("Right", this::doMoveRight);
         JButton restart = UI.addButton("Restart", this::doRestart);
         UI.addButton("Quit", UI::quit);
+        UI.setMouseListener(this::doMouse);
 
 
         this.doRestart();
@@ -132,10 +133,6 @@ public class DominoGame{
             }
 
         }
-
-
-
-
         this.redraw();
     }
 
@@ -146,6 +143,18 @@ public class DominoGame{
      */
     public void drawHand(){
         /*# YOUR CODE HERE */
+//        Show dominos in the hand
+        for (int i = 0; i < this.hand.length; i++) {
+            if (this.hand[i] != null) {
+                this.hand[i].draw(60 + i * DOMINO_SPACING, 5);
+            }
+        }
+
+//        Show selectedPos
+        if (this.hand.length > 0) {
+            UI.setColor(Color.green);
+            UI.drawRect(60 + selectedPos * DOMINO_SPACING, 5, 50, 100);
+        }
 
     }
 
@@ -153,8 +162,24 @@ public class DominoGame{
      * Move domino from selected position on hand (if there is domino there) to the table
      * The selectedPos field contains the index of the selected domino.
      */
-    public void doPlaceDomino(){
+    public void doPlaceDomino() {
         /*# YOUR CODE HERE */
+        if (this.hand[selectedPos] != null) {
+            this.table.add(this.hand[selectedPos]);
+            this.hand[selectedPos] = null;
+        } else {
+            UI.println("You have no Domino at there!");
+            UI.setColor(Color.red);
+            UI.drawRect(60 + selectedPos * DOMINO_SPACING, 5, 50, 100);
+            UI.sleep(100);
+            UI.setColor(Color.green);
+            UI.drawRect(60 + selectedPos * DOMINO_SPACING, 5, 50, 100);
+            UI.setColor(Color.red);
+            UI.sleep(100);
+            UI.drawRect(60 + selectedPos * DOMINO_SPACING, 5, 50, 100);
+            UI.setColor(Color.green);
+        }
+
 
         this.redraw();
     }
