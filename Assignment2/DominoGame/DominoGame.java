@@ -146,14 +146,14 @@ public class DominoGame{
 //        Show dominos in the hand
         for (int i = 0; i < this.hand.length; i++) {
             if (this.hand[i] != null) {
-                this.hand[i].draw(60 + i * DOMINO_SPACING, 5);
+                this.hand[i].draw(HAND_LEFT + i * DOMINO_SPACING, 5);
             }
         }
 
 //        Show selectedPos
         if (this.hand.length > 0) {
             UI.setColor(Color.green);
-            UI.drawRect(60 + selectedPos * DOMINO_SPACING, 5, 50, 100);
+            UI.drawRect(HAND_LEFT + selectedPos * DOMINO_SPACING, 5, 50, 100);
         }
 
     }
@@ -170,13 +170,13 @@ public class DominoGame{
         } else {
             UI.println("You have no Domino at there!");
             UI.setColor(Color.red);
-            UI.drawRect(60 + selectedPos * DOMINO_SPACING, 5, 50, 100);
+            UI.drawRect(HAND_LEFT + selectedPos * DOMINO_SPACING, 5, 50, 100);
             UI.sleep(100);
             UI.setColor(Color.green);
-            UI.drawRect(60 + selectedPos * DOMINO_SPACING, 5, 50, 100);
+            UI.drawRect(HAND_LEFT + selectedPos * DOMINO_SPACING, 5, 50, 100);
             UI.setColor(Color.red);
             UI.sleep(100);
-            UI.drawRect(60 + selectedPos * DOMINO_SPACING, 5, 50, 100);
+            UI.drawRect(HAND_LEFT + selectedPos * DOMINO_SPACING, 5, 50, 100);
             UI.setColor(Color.green);
         }
 
@@ -191,6 +191,17 @@ public class DominoGame{
      */
     public void drawTable(){
         /*# YOUR CODE HERE */
+        int i = 0;
+        int row = 0;
+        for (Domino d : table) {
+            d.draw(TABLE_LEFT + i * DOMINO_SPACING, TABLE_TOP + row * (100 + 5));
+            i++;
+            if (i == 10) {
+                i = 0;
+                row++;
+            }
+
+        }
 
     }
 
