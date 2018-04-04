@@ -115,7 +115,7 @@ public class DominoGame{
     public void doRestart(){
         /*# YOUR CODE HERE */
         this.table.clear();
-        Arrays.fill(hand, null);
+        Arrays.fill(hand, null);//Learned from stackoverflow.com/questions/4208655/empty-an-array-in-java-processing
         this.redraw();
     }
 
@@ -158,6 +158,19 @@ public class DominoGame{
 
     }
 
+    public void doShowWarning() {
+//        UI.println("You have no Domino at there!");
+        UI.setColor(Color.red);
+        UI.drawRect(HAND_LEFT + selectedPos * DOMINO_SPACING, 5, 50, 100);
+        UI.sleep(100);
+        UI.setColor(Color.green);
+        UI.drawRect(HAND_LEFT + selectedPos * DOMINO_SPACING, 5, 50, 100);
+        UI.setColor(Color.red);
+        UI.sleep(100);
+        UI.drawRect(HAND_LEFT + selectedPos * DOMINO_SPACING, 5, 50, 100);
+        UI.setColor(Color.green);
+    }
+
     /**
      * Move domino from selected position on hand (if there is domino there) to the table
      * The selectedPos field contains the index of the selected domino.
@@ -168,16 +181,8 @@ public class DominoGame{
             this.table.add(this.hand[selectedPos]);
             this.hand[selectedPos] = null;
         } else {
-            UI.println("You have no Domino at there!");
-            UI.setColor(Color.red);
-            UI.drawRect(HAND_LEFT + selectedPos * DOMINO_SPACING, 5, 50, 100);
-            UI.sleep(100);
-            UI.setColor(Color.green);
-            UI.drawRect(HAND_LEFT + selectedPos * DOMINO_SPACING, 5, 50, 100);
-            UI.setColor(Color.red);
-            UI.sleep(100);
-            UI.drawRect(HAND_LEFT + selectedPos * DOMINO_SPACING, 5, 50, 100);
-            UI.setColor(Color.green);
+            this.doShowWarning();
+
         }
 
 
@@ -211,6 +216,11 @@ public class DominoGame{
      */
     public void doFlipDomino(){
         /*# YOUR CODE HERE */
+        if (this.hand[selectedPos] != null) {
+            this.hand[selectedPos].flip();
+        } else {
+            this.doShowWarning();
+        }
 
         this.redraw();
     }
@@ -222,9 +232,20 @@ public class DominoGame{
      */
     public void doMoveLeft(){
         /*# YOUR CODE HERE */
+        if ((selectedPos > 0) && (this.hand[selectedPos] != null)) {
+            Domino temp = this.hand[selectedPos];
+            this.hand[selectedPos] = this.hand[selectedPos - 1];
+            this.hand[selectedPos - 1] = temp;
+//            if (selectedPos>0) {
+            this.selectedPos--;
+//            }
+        } else {
+            this.doShowWarning();
+        }
 
         this.redraw();
     }
+
 
     /**
      * Swap the contents of the selected position on hand with the
@@ -233,6 +254,16 @@ public class DominoGame{
      */
     public void doMoveRight(){
         /*# YOUR CODE HERE */
+        if ((selectedPos + 1 < NUM_HAND) && (this.hand[selectedPos] != null)) {
+            Domino temp = this.hand[selectedPos];
+            this.hand[selectedPos] = this.hand[selectedPos + 1];
+            this.hand[selectedPos + 1] = temp;
+            if (selectedPos < NUM_HAND) {
+                this.selectedPos++;
+            }
+        } else {
+            this.doShowWarning();
+        }
 
         this.redraw();
     }
