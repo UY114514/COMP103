@@ -80,8 +80,9 @@ public class DominoGame{
     //spacing is the distance from left side of Domino to left side of next domino
     public static final int DOMINO_HEIGHT = 100; 
 
-    public static final int TABLE_LEFT = 10;                
-    public static final int TABLE_TOP = 120;   
+    public static final int TABLE_LEFT = 10;
+    public static final int TABLE_TOP = 120;
+    private JButton place, flip, left, right, suggest;
 
     /**  Constructor:
      * Initialise the hand field to have an array that will hold NUM_HAND Dominos
@@ -90,15 +91,17 @@ public class DominoGame{
      *  restart the game
      */
     public DominoGame(){
+
         /*# YOUR CODE HERE */
         hand = new Domino[NUM_HAND];
         table = new ArrayList<>();
         UI.addButton("Pickup", this::doPickup);
-        UI.addButton("Place", this::doPlaceDomino);
-        UI.addButton("Flip", this::doFlipDomino);
-        UI.addButton("Left", this::doMoveLeft);
-        UI.addButton("Right", this::doMoveRight);
+        place = UI.addButton("Place", this::doPlaceDomino);
+        flip = UI.addButton("Flip", this::doFlipDomino);
+        left = UI.addButton("Left", this::doMoveLeft);
+        right = UI.addButton("Right", this::doMoveRight);
         JButton restart = UI.addButton("Restart", this::doRestart);
+        suggest = UI.addButton("Suggestion!", this::doSuggestDomino);
         UI.addButton("Quit", UI::quit);
         UI.setMouseListener(this::doMouse);
 
@@ -148,12 +151,21 @@ public class DominoGame{
             if (this.hand[i] != null) {
                 this.hand[i].draw(HAND_LEFT + i * DOMINO_SPACING, 5);
             }
+
         }
 
 //        Show selectedPos
         if (this.hand.length > 0) {
             UI.setColor(Color.green);
             UI.drawRect(HAND_LEFT + selectedPos * DOMINO_SPACING, 5, 50, 100);
+            if (this.hand[selectedPos] != null) {
+                this.place.setEnabled(true);
+                this.flip.setEnabled(true);
+//                this.left
+            } else {
+                this.place.setEnabled(false);
+                this.flip.setEnabled(false);
+            }
         }
 
     }
@@ -171,6 +183,15 @@ public class DominoGame{
         UI.setColor(Color.green);
     }
 
+    public void doShowSuggestion(int pos) {
+        UI.setColor(Color.blue);
+        UI.setLineWidth(5);
+        UI.drawRect(HAND_LEFT + pos * DOMINO_SPACING, 5, 50, 100);
+        UI.setLineWidth(1);
+    }
+
+
+
     /**
      * Move domino from selected position on hand (if there is domino there) to the table
      * The selectedPos field contains the index of the selected domino.
@@ -182,7 +203,6 @@ public class DominoGame{
             this.hand[selectedPos] = null;
         } else {
             this.doShowWarning();
-
         }
 
 
@@ -275,8 +295,32 @@ public class DominoGame{
      */
     public void doSuggestDomino(){
         /*# YOUR CODE HERE */
+        if (this.table.isEmpty()) {
+            for (int i = 0; i < this.hand.length; i++) {
+                if (this.hand[i] != null) {
+                    if (this.hand[i].getBottom() == this.hand[i].getTop()) {
+                        this.doShowSuggestion(i);
+                    }
+                }
+            }
 
+        } else {
+            int lastButtom = this.table.get(this.table.size() - 1).getBottom();
+            int lastTop = this.table.get(this.table.size() - 1).getTop();
+            for (int i = 0; i < this.hand.length; i++) {
+                if (this.hand[i] != null) {
+                    if ((this.hand[i].getBottom() == lastButtom) || (this.hand[i].getBottom() == lastTop) || (this.hand[i].getTop() == lastButtom) || (this.hand[i].getTop() == lastTop)) {
+                        this.doShowSuggestion(i);
+                    }
+
+                }
+            }
+        }
     }
+
+
+
+
 
     /** ---------- The code below is already written for you ---------- **/
 
