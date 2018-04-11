@@ -118,8 +118,15 @@ public class ImageProcessor {
      */
     public void doFlipImageHorizontally() {
         /*# YOUR CODE HERE */
-        int temp_image[][] = this.image;
-//        temp_image
+        int cols = this.image[0].length;
+        int temp;
+        for (int row = 0; row < this.image.length; row++) {
+            for (int col = 0; col < cols / 2; col++) {
+                temp = this.image[row][col];
+                this.image[row][col] = this.image[row][cols - col - 1];
+                this.image[row][cols - 1 - col] = temp;
+            }
+        }
 
         this.redisplayImage();
     }
@@ -132,6 +139,19 @@ public class ImageProcessor {
      */
     public void doFlipImageVertically() {
         /*# YOUR CODE HERE */
+
+
+        int rows = this.image.length;
+        int temp[];
+        for (int row = 0; row < this.image.length / 2; row++) {
+            temp = this.image[row];
+            this.image[row] = this.image[rows - row - 1];
+            this.image[rows - row - 1] = temp;
+        }
+
+
+
+
 
         this.redisplayImage();
     }
