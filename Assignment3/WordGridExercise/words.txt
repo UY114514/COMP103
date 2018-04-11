@@ -1,0 +1,24 @@
+10 8
+0 0 hold
+0 2 a
+0 3 a
+1 1 mark
+1 6 good
+1 7 held
+2 4 yelp
+3 1 way
+3 2 with
+3 5 to
+4 7 again
+5 0 stick
+5 2 and
+5 3 mark
+5 6 off
+6 1 then
+7 3 its
+7 7 out
+8 0 series
+8 1 was
+8 4 it
+9 4 sat
+9 5 once
