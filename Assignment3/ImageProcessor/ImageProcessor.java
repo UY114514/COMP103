@@ -98,9 +98,9 @@ public class ImageProcessor {
         /*# YOUR CODE HERE */
         for (int row = 0; row < this.image.length; row++) {
             for (int col = 0; col < this.image[row].length; col++) {
-                if (this.image[row][col] >= 128) {
+                if ((this.image[row][col] > 128) && (this.image[row][col]*1.2<=255)) {
                     this.image[row][col] = (int) (this.image[row][col] * 1.2);
-                } else {
+                } else if ((this.image[row][col] < 128) && (this.image[row][col]*0.8>=0)) {
                     this.image[row][col] = (int) (this.image[row][col] * 0.8);
                 }
             }
