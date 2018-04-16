@@ -139,8 +139,6 @@ public class ImageProcessor {
      */
     public void doFlipImageVertically() {
         /*# YOUR CODE HERE */
-
-
         int rows = this.image.length;
         int temp[];
         for (int row = 0; row < this.image.length / 2; row++) {
@@ -148,10 +146,6 @@ public class ImageProcessor {
             this.image[row] = this.image[rows - row - 1];
             this.image[rows - row - 1] = temp;
         }
-
-
-
-
 
         this.redisplayImage();
     }
@@ -167,6 +161,18 @@ public class ImageProcessor {
      */
     public void doRotateImage180() {
         /*# YOUR CODE HERE */
+        int rows = this.image.length;
+        int cols = this.image[0].length;
+        int[][] temp = new int[rows][cols];
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+
+            }
+        }
+
+
+        this.image = temp;
 
         this.redisplayImage();
     }
@@ -183,6 +189,18 @@ public class ImageProcessor {
      */
     public void doRotateImage90() {
         /*# YOUR CODE HERE */
+        int rows = this.image.length;
+        int cols = this.image[0].length;
+        int[][] temp = new int[cols][rows];
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                temp[temp.length - col - 1][row] = this.image[row][col];
+            }
+        }
+
+
+        this.image = temp;
 
         this.redisplayImage();
     }
@@ -216,6 +234,7 @@ public class ImageProcessor {
         int cols = Math.min(this.image[0].length, other[0].length); // common to both
         //only change image in region 0..rows-1, 0..cols-1
         /*# YOUR CODE HERE */
+
 
         this.redisplayImage();
     }
@@ -303,8 +322,8 @@ public class ImageProcessor {
      * Ask user for an image file, and load it into the current image
      */
     public void doLoadImage() {
-//        this.image = this.loadAnImage(UIFileChooser.open());
-        this.image = this.loadAnImage("C:\\Users\\Yan\\Google Drive\\XMUT\\git_COMP103_Assignments\\COMP103\\Assignment3\\ImageProcessor\\img-flower.jpg");
+        this.image = this.loadAnImage(UIFileChooser.open());
+//        this.image = this.loadAnImage("C:\\Users\\Yan\\Google Drive\\XMUT\\git_COMP103_Assignments\\COMP103\\Assignment3\\ImageProcessor\\img-flower.jpg");
 //        this.image = ;
         this.redisplayImage();
     }
