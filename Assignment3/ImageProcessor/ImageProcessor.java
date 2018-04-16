@@ -161,18 +161,21 @@ public class ImageProcessor {
      */
     public void doRotateImage180() {
         /*# YOUR CODE HERE */
+        /*
         int rows = this.image.length;
         int cols = this.image[0].length;
         int[][] temp = new int[rows][cols];
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-
+                temp[rows - 1 - row][cols - 1 - col] = this.image[row][col];
             }
         }
-
-
         this.image = temp;
+        */
+
+        this.doFlipImageHorizontally();
+        this.doFlipImageVertically();
 
         this.redisplayImage();
     }
