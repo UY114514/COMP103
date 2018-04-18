@@ -98,9 +98,9 @@ public class ImageProcessor {
         /*# YOUR CODE HERE */
         for (int row = 0; row < this.image.length; row++) {
             for (int col = 0; col < this.image[row].length; col++) {
-                if ((this.image[row][col] > 128) && (this.image[row][col]*1.2<=255)) {
+                if ((this.image[row][col] > 128) && ((this.image[row][col]-128)*1.2+128<=255)) {
                     this.image[row][col] = (int) (this.image[row][col] * 1.2);
-                } else if ((this.image[row][col] < 128) && (this.image[row][col]*0.8>=0)) {
+                } else if ((this.image[row][col] < 128) && ( this.image[row][col]-((128-this.image[row][col])*0.8)>=0)) {
                     this.image[row][col] = (int) (this.image[row][col] * 0.8);
                 }
             }
@@ -218,6 +218,25 @@ public class ImageProcessor {
      */
     public void doExpandImage() {
         /*# YOUR CODE HERE */
+        int[][] temp = new int[(int)(this.image.length/2)][(int)(this.image[0].length/2)];//make a 1/4 copy of the origin array
+        for (int row = 0; row < temp.length; row++) {
+            for (int col = 0; col < temp[0].length; col++) {
+                temp[row][col] = this.image[row][col];
+            }
+        }
+
+        for (int row = 0; row < temp.length; row++) {
+            for (int col = 0; col < temp[0].length; col++) {
+                this.image[row * 2][col * 2] = temp[row][col];
+                this.image[(row * 2)+1][col * 2] = temp[row][col];
+                this.image[row * 2][(col * 2)+1] = temp[row][col];
+                this.image[(row * 2)+1][(col * 2)+1] = temp[row][col];
+
+            }
+        }
+
+
+
 
         this.redisplayImage();
     }
@@ -325,8 +344,8 @@ public class ImageProcessor {
      * Ask user for an image file, and load it into the current image
      */
     public void doLoadImage() {
-        this.image = this.loadAnImage(UIFileChooser.open());
-//        this.image = this.loadAnImage("C:\\Users\\Yan\\Google Drive\\XMUT\\git_COMP103_Assignments\\COMP103\\Assignment3\\ImageProcessor\\img-flower.jpg");
+//        this.image = this.loadAnImage(UIFileChooser.open());
+        this.image = this.loadAnImage("C:\\Users\\Yan\\Google Drive\\XMUT\\git_COMP103_Assignments\\COMP103\\Assignment3\\ImageProcessor\\img-flower.jpg");
 //        this.image = ;
         this.redisplayImage();
     }
