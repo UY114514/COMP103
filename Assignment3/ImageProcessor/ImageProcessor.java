@@ -98,10 +98,10 @@ public class ImageProcessor {
         /*# YOUR CODE HERE */
         for (int row = 0; row < this.image.length; row++) {
             for (int col = 0; col < this.image[row].length; col++) {
-                if ((this.image[row][col] > 128) && ((this.image[row][col]-128)*1.2+128<=255)) {
-                    this.image[row][col] = (int) (this.image[row][col] * 1.2);
+                if ((this.image[row][col] > 128) && ((this.image[row][col]-128)*1.2+this.image[row][col]<=255)) {
+                    this.image[row][col] = (int) ((this.image[row][col]-128) * 1.2)+ this.image[row][col];
                 } else if ((this.image[row][col] < 128) && ( this.image[row][col]-((128-this.image[row][col])*0.8)>=0)) {
-                    this.image[row][col] = (int) (this.image[row][col] * 0.8);
+                    this.image[row][col] = (int) (this.image[row][col] - ((128-this.image[row][col])* 0.8));
                 }
             }
         }
@@ -232,6 +232,7 @@ public class ImageProcessor {
                 this.image[row * 2][(col * 2)+1] = temp[row][col];
                 this.image[(row * 2)+1][(col * 2)+1] = temp[row][col];
 
+
             }
         }
 
@@ -256,6 +257,14 @@ public class ImageProcessor {
         int cols = Math.min(this.image[0].length, other[0].length); // common to both
         //only change image in region 0..rows-1, 0..cols-1
         /*# YOUR CODE HERE */
+        System.out.println("[r:"+rows+"][c:"+cols+"]");
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                this.image[row][col] = (this.image[row][col] + other[row][col])/2;
+            }
+
+        }
+
 
 
         this.redisplayImage();
