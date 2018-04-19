@@ -98,8 +98,8 @@ public class ImageProcessor {
         /*# YOUR CODE HERE */
         for (int row = 0; row < this.image.length; row++) {
             for (int col = 0; col < this.image[row].length; col++) {
-                if ((this.image[row][col] > 128) && ((this.image[row][col]-128)*1.2+this.image[row][col]<=255)) {
-                    this.image[row][col] = (int) ((this.image[row][col]-128) * 1.2)+ this.image[row][col];
+                if ((this.image[row][col] > 128) && ((this.image[row][col]-128)*0.2+this.image[row][col]<=255)) {
+                    this.image[row][col] = (int) ((this.image[row][col]-128) * 0.2)+ this.image[row][col];
                 } else if ((this.image[row][col] < 128) && ( this.image[row][col]-((128-this.image[row][col])*0.8)>=0)) {
                     this.image[row][col] = (int) (this.image[row][col] - ((128-this.image[row][col])* 0.8));
                 }
@@ -284,6 +284,7 @@ public class ImageProcessor {
      */
     public void doZoomImage() {
         /*# YOUR CODE HERE */
+//        int temp[this.image.length][this.image[0].length]
 
         this.redisplayImage();
     }
