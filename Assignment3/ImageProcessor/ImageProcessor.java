@@ -100,8 +100,8 @@ public class ImageProcessor {
             for (int col = 0; col < this.image[row].length; col++) {
                 if ((this.image[row][col] > 128) && ((this.image[row][col]-128)*0.2+this.image[row][col]<=255)) {
                     this.image[row][col] = (int) ((this.image[row][col]-128) * 0.2)+ this.image[row][col];
-                } else if ((this.image[row][col] < 128) && ( this.image[row][col]-((128-this.image[row][col])*0.8)>=0)) {
-                    this.image[row][col] = (int) (this.image[row][col] - ((128-this.image[row][col])* 0.8));
+                } else if ((this.image[row][col] < 128) && ( this.image[row][col]-((128-this.image[row][col])*0.2)>=0)) {
+                    this.image[row][col] = (int) (this.image[row][col] - ((128-this.image[row][col])* 0.2));
                 }
             }
         }
