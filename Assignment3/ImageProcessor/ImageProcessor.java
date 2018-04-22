@@ -161,7 +161,6 @@ public class ImageProcessor {
      */
     public void doRotateImage180() {
         /*# YOUR CODE HERE */
-        /*
         int rows = this.image.length;
         int cols = this.image[0].length;
         int[][] temp = new int[rows][cols];
@@ -172,10 +171,9 @@ public class ImageProcessor {
             }
         }
         this.image = temp;
-        */
 
-        this.doFlipImageHorizontally();
-        this.doFlipImageVertically();
+//        this.doFlipImageHorizontally();
+//        this.doFlipImageVertically();
 
         this.redisplayImage();
     }
@@ -284,7 +282,41 @@ public class ImageProcessor {
      */
     public void doZoomImage() {
         /*# YOUR CODE HERE */
-//        int temp[this.image.length][this.image[0].length]
+        /*
+        * sr = sr+(cr-sr)*3/4
+        * sc = sc+(cc-sc)*3/4
+        *
+        * */
+
+//       make temp array
+        double ratio = 1.33;
+        int temp[][] = new int[(int)(this.image.length*ratio)][(int)(this.image[0].length*ratio)];
+        int tRows = temp.length;
+        int tCols = temp[0].length;
+        int oRows = this.image.length;
+        int oCols = this.image[0].length;
+
+        /*For this part I get help from [github.com/mixlulu/COMP102-JAVA/blob/master/ImageProcessor.java]*/
+//        zoom image
+        for (int row = 0; row < tRows; row++) {
+            for (int col = 0; col < tCols; col++) {
+                temp[row][col] = this.image[row * 3 / 4][col * 3 / 4];
+            }
+        }
+
+//        clip image
+
+        for (int row = 0;row<oRows;row++) {
+            for (int col = 0;col<oCols;col++) {
+                this.image[row][col] = temp[row + selectedRow / 3][col + selectedCol / 3];//
+            }
+        }
+
+//        this.image = temp;
+
+
+
+
 
         this.redisplayImage();
     }
@@ -354,8 +386,7 @@ public class ImageProcessor {
      * Ask user for an image file, and load it into the current image
      */
     public void doLoadImage() {
-//        this.image = this.loadAnImage(UIFileChooser.open());
-        this.image = this.loadAnImage("C:\\Users\\Yan\\Google Drive\\XMUT\\git_COMP103_Assignments\\COMP103\\Assignment3\\ImageProcessor\\img-flower.jpg");
+        this.image = this.loadAnImage(UIFileChooser.open());
 //        this.image = ;
         this.redisplayImage();
     }
