@@ -14,11 +14,48 @@ public class BasicArrays {
     public BasicArrays() {
         UI.initialise();
         verticalLineButton = UI.addButton("Vertical Line", this::verticalLine);
+        UI.addButton("Box", this::box);
 
     }
 
     private Color getColor(int number_of_Items, int index) {
         return new Color(index * 255 / number_of_Items);
+    }
+
+    public void draw2DArray(Color[][] array) {
+        /*something wrong with the name of "cols" and "rows" here but I'm too lazy to change it
+         * the cols actually is rows and so on
+         */
+        for (int col = 0; col < array[0].length; col++) {
+            for (int row = 0; row < array.length; row++) {
+                UI.setColor(array[row][col]);
+                UI.fillRect(LEFT+col*BOX_SIZE,TOP+row*BOX_SIZE,BOX_SIZE,BOX_SIZE);
+
+            }
+        }
+    }
+
+    public void box() {
+
+        int rows = UI.askInt("Row:");
+        int cols = UI.askInt("Col:");
+        Color[][] array = new Color[rows][cols];
+        int index = 1;
+
+        for (int row = 0; row < array.length; row++) {
+            for (int col = 0; col < array[0].length; col++) {
+                UI.println(row+","+col);
+                array[row][col] = this.getColor(cols * rows, index);
+                UI.println("#"+index);
+                index++;
+                UI.sleep(100);
+                UI.setColor(array[row][col]);
+//                UI.fillRect(LEFT,TOP,BOX_SIZE,BOX_SIZE);
+            }
+
+        }
+this.draw2DArray(array);
+
     }
 
     public void drawVerticalArray(Color[] verticalArray) {
