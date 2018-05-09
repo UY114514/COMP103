@@ -1,0 +1,15 @@
+/* Reflection.txt for COMP103 - 2017T2, Assignment 1
+ * Name:
+ * Username:
+ * ID:
+ */
+
+For your reflection:
+====================
+
+Write a paragraph that describes an aspect of the material we've covered 
+so far (i.e. anything in the lectures to date, or this assignment) that 
+you found particularly interesting, or tricky to understand. Include how 
+you went about exploring further, learning about the issue to your own 
+satisfaction. If understanding it remains a problem for you, outline 
+what your next step will be in sorting this out.
