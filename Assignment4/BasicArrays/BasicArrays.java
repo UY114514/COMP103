@@ -23,17 +23,26 @@ public class BasicArrays {
     }
 
     public void draw2DArray(Color[][] array) {
-        /*something wrong with the name of "cols" and "rows" here but I'm too lazy to change it
+        /*something wrong with the name of "cols" and "rows" here
+        but I'm too lazy to change it
          * the cols actually is rows and so on
          */
-        for (int col = 0; col < array[0].length; col++) {
-            for (int row = 0; row < array.length; row++) {
+        int count = 1;
+        for (int row = 0; row < array.length; row++) {
+            for (int col = 0; col < array[0].length; col++) {
                 UI.setColor(array[row][col]);
-                UI.fillRect(LEFT+col*BOX_SIZE,TOP+row*BOX_SIZE,BOX_SIZE,BOX_SIZE);
+                UI.fillRect(LEFT + col * BOX_SIZE, TOP + row * BOX_SIZE, BOX_SIZE, BOX_SIZE);
+                UI.setFontSize(FONT_SIZE);
+//        draw No.
+                UI.setColor(Color.WHITE);
+                UI.drawString(String.valueOf(count), LEFT + (col) * BOX_SIZE + BOX_SIZE / 3, TOP + (row + 1) * BOX_SIZE - BOX_SIZE / 3);
+                count++;
+//                UI.sleep(100);
 
             }
         }
     }
+
 
     public void box() {
 
@@ -44,17 +53,17 @@ public class BasicArrays {
 
         for (int row = 0; row < array.length; row++) {
             for (int col = 0; col < array[0].length; col++) {
-                UI.println(row+","+col);
+                UI.println(row + "," + col);
                 array[row][col] = this.getColor(cols * rows, index);
-                UI.println("#"+index);
+                UI.println("#" + index);
                 index++;
-                UI.sleep(100);
+
                 UI.setColor(array[row][col]);
 //                UI.fillRect(LEFT,TOP,BOX_SIZE,BOX_SIZE);
             }
 
         }
-this.draw2DArray(array);
+        this.draw2DArray(array);
 
     }
 
