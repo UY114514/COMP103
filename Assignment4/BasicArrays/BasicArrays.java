@@ -15,12 +15,74 @@ public class BasicArrays {
         UI.initialise();
         verticalLineButton = UI.addButton("Vertical Line", this::verticalLine);
         UI.addButton("Box", this::box);
+        UI.addButton("Spiral", this::spiralArray);
+        UI.addButton("Clear", UI::clearGraphics);
 
     }
 
     private Color getColor(int number_of_Items, int index) {
         return new Color(index * 255 / number_of_Items);
     }
+
+
+    public void spiralArray() {
+        /*
+         * get some help from https://blog.csdn.net/mine_song/article/details/70212215
+         * */
+
+        int rows = UI.askInt("Row:");
+        int cols = UI.askInt("Col:");
+
+
+        Color[][] colorArray = new Color[rows][cols];
+        Integer[][] indexArray = new Integer[rows][cols];
+        int index = 1;
+
+        int layers = (int) Math.ceil((Math.min(rows, cols)) / 2.0);//layer counter: to mark which layer we're on
+        for (int layer = 0; layer < layers; layer++) {
+            for (int col = layer; col < cols - layer; col++) {
+                indexArray[layer][col] = index;
+                colorArray[layer][col] = this.getColor(rows * cols, index);
+                index++;
+            }
+            for (int row = layer + 1; row < rows - layer; row++) {
+                indexArray[row][cols - layer - 1] = index;
+                colorArray[row][cols - layer - 1] = this.getColor(rows * cols, index);
+                index++;
+            }
+            for (int col = cols - layer - 2; (col >= layer) && (rows - layer - 1 != layer); col--) {
+                indexArray[rows - layer - 1][col] = index;
+                colorArray[rows - layer - 1][col] = this.getColor(rows * cols, index);
+                index++;
+            }
+            for (int row = rows - layer - 2; (row > layer) && (cols - layer - 1 != layer); row--) {
+                indexArray[row][layer] = index;
+                colorArray[row][layer] = this.getColor(rows * cols, index);
+                index++;
+            }
+        }
+        drawSpiralArray(colorArray, indexArray);
+    }
+
+
+    public void drawSpiralArray(Color[][] array, Integer[][] indexArray) {
+
+//        int count = 1;
+        for (int row = 0; row < array.length; row++) {
+            for (int col = 0; col < array[0].length; col++) {
+                UI.setColor(array[row][col]);
+                UI.fillRect(LEFT + col * BOX_SIZE, TOP + row * BOX_SIZE, BOX_SIZE, BOX_SIZE);
+                UI.setFontSize(FONT_SIZE);
+//        draw No.
+
+                UI.setColor(Color.WHITE);
+                UI.drawString(String.valueOf(indexArray[row][col]), LEFT + (col) * BOX_SIZE + BOX_SIZE / 3, TOP + (row + 1) * BOX_SIZE - BOX_SIZE / 3);
+
+
+            }
+        }
+    }
+
 
     public void draw2DArray(Color[][] array) {
         /*something wrong with the name of "cols" and "rows" here
@@ -53,9 +115,7 @@ public class BasicArrays {
 
         for (int row = 0; row < array.length; row++) {
             for (int col = 0; col < array[0].length; col++) {
-                UI.println(row + "," + col);
                 array[row][col] = this.getColor(cols * rows, index);
-                UI.println("#" + index);
                 index++;
 
                 UI.setColor(array[row][col]);
@@ -85,7 +145,7 @@ public class BasicArrays {
         int col = UI.askInt("Col:");
         //        Integer col = Integer.valueOf(JOptionPane.showInputDialog("Fuckyou"));
         Color[] verticalArray1 = new Color[col];
-                for (int i = 0; i < col; i++) {
+        for (int i = 0; i < col; i++) {
             verticalArray1[col - 1 - i] = getColor(col, i + 1);
         }
         this.drawVerticalArray(verticalArray1);
