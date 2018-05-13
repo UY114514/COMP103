@@ -85,18 +85,7 @@ public class BasicArrays {
         int col = UI.askInt("Col:");
         //        Integer col = Integer.valueOf(JOptionPane.showInputDialog("Fuckyou"));
         Color[] verticalArray1 = new Color[col];
-        /*
-        e.g. col = 10
-        从上往下第10个最深
-        从上往下第1个序号是10
-        按颜色深度排序，下面的最深： for(int i;i<col;i++)
-        getColor(col,i)，浅→深，编号时反顺序
-        getColor最后一个最深色 第一个最浅
-        参数：总数，第几个
-
-
-        */
-        for (int i = 0; i < col; i++) {
+                for (int i = 0; i < col; i++) {
             verticalArray1[col - 1 - i] = getColor(col, i + 1);
         }
         this.drawVerticalArray(verticalArray1);
