@@ -1,7 +1,10 @@
 import ecs100.*;
+import sun.security.provider.SHA;
 
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class BasicArrays {
@@ -10,6 +13,9 @@ public class BasicArrays {
     public static Double LEFT = TOP;
     public static Double BOX_SIZE = 50.0;
     public static Integer FONT_SIZE = 15;
+    public JSlider sliderVertical = new JSlider(SwingConstants.VERTICAL, 0, 15, 1);
+    public JSlider sliderHorizontal = new JSlider(SwingConstants.HORIZONTAL, 0, 20, 1);
+
 
     public BasicArrays() {
         UI.initialise();
@@ -17,6 +23,8 @@ public class BasicArrays {
         UI.addButton("Box", this::box);
         UI.addButton("Spiral", this::spiralArray);
         UI.addButton("Clear", UI::clearGraphics);
+        UI.setDivider(0);
+
 
     }
 
@@ -29,9 +37,10 @@ public class BasicArrays {
         /*
          * get some help from https://blog.csdn.net/mine_song/article/details/70212215
          * */
+        int ask[] = askForColsAndRows();
 
-        int rows = UI.askInt("Row:");
-        int cols = UI.askInt("Col:");
+        int rows = ask[0];
+        int cols = ask[1];
 
 
         Color[][] colorArray = new Color[rows][cols];
@@ -107,9 +116,10 @@ public class BasicArrays {
 
 
     public void box() {
+        int ask[] = askForColsAndRows();
 
-        int rows = UI.askInt("Row:");
-        int cols = UI.askInt("Col:");
+        int rows = ask[0];
+        int cols = ask[1];
         Color[][] array = new Color[rows][cols];
         int index = 1;
 
@@ -142,8 +152,10 @@ public class BasicArrays {
 
 
     public void verticalLine() {
-        int col = UI.askInt("Col:");
+        int col = askForCol();
+//        int col = UI.askInt("Col:");
         //        Integer col = Integer.valueOf(JOptionPane.showInputDialog("Fuckyou"));
+
         Color[] verticalArray1 = new Color[col];
         for (int i = 0; i < col; i++) {
             verticalArray1[col - 1 - i] = getColor(col, i + 1);
@@ -158,6 +170,121 @@ public class BasicArrays {
 //        }
 
 
+    }
+
+    public int askForCol() {
+        JPanel myPanel = new JPanel();
+//        myPanel.setLayout(new BorderLayout());
+//        myPanel.setLayout(new FlowLayout(0));
+//        myPanel.setLayout(new GridLayout(2,2,5,5));
+//        myPanel.setLayout(new CardLayout());
+        myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.X_AXIS));
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
+
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel,BoxLayout.Y_AXIS));
+
+
+        sliderVertical.setMajorTickSpacing(5);
+        sliderVertical.setMinorTickSpacing(1);
+        sliderVertical.setPaintTicks(true);
+        sliderVertical.setPaintLabels(true);
+        leftPanel.add(sliderVertical, BorderLayout.WEST);
+
+        JLabel sliderVertical_Label = new JLabel("Cols: " + String.valueOf(sliderVertical.getValue()));
+        JLabel sliderHorizontal_Label = new JLabel("Rows: " + String.valueOf(sliderHorizontal.getValue()));
+        leftPanel.add(sliderVertical_Label);
+
+
+        ChangeListener aChangeListener = new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if ((JSlider) e.getSource() == sliderVertical) {
+                    sliderVertical_Label.setText(String.valueOf("Cols: " + sliderVertical.getValue()));
+                }
+                if ((JSlider) e.getSource() == sliderHorizontal) {
+                    sliderHorizontal_Label.setText(String.valueOf("Rows: ") + sliderHorizontal.getValue());
+                }
+            }
+        };
+        sliderVertical.addChangeListener(aChangeListener);
+        sliderHorizontal.addChangeListener(aChangeListener);
+
+
+        sliderHorizontal.setMajorTickSpacing(5);
+        sliderHorizontal.setMinorTickSpacing(1);
+        sliderHorizontal.setPaintTicks(true);
+        sliderHorizontal.setPaintLabels(true);
+
+
+        myPanel.add(leftPanel);
+        rightPanel.add(sliderHorizontal);
+        rightPanel.add(sliderHorizontal_Label);
+
+
+        JOptionPane.showConfirmDialog(null, myPanel,
+                "Please Enter Cols Values", JOptionPane.OK_OPTION);
+
+
+        return sliderVertical.getValue();
+    }
+
+    public int[] askForColsAndRows() {
+        JPanel myPanel = new JPanel();
+
+        myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.X_AXIS));
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
+
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel,BoxLayout.Y_AXIS));
+
+
+        sliderVertical.setMajorTickSpacing(5);
+        sliderVertical.setMinorTickSpacing(1);
+        sliderVertical.setPaintTicks(true);
+        sliderVertical.setPaintLabels(true);
+        leftPanel.add(sliderVertical, BorderLayout.WEST);
+
+        JLabel sliderVertical_Label = new JLabel("Cols: " + String.valueOf(sliderVertical.getValue()));
+        JLabel sliderHorizontal_Label = new JLabel("Rows: " + String.valueOf(sliderHorizontal.getValue()));
+        leftPanel.add(sliderVertical_Label);
+
+
+        ChangeListener aChangeListener = new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if ((JSlider) e.getSource() == sliderVertical) {
+                    sliderVertical_Label.setText(String.valueOf("Cols: " + sliderVertical.getValue()));
+                }
+                if ((JSlider) e.getSource() == sliderHorizontal) {
+                    sliderHorizontal_Label.setText(String.valueOf("Rows: ") + sliderHorizontal.getValue());
+                }
+            }
+        };
+        sliderVertical.addChangeListener(aChangeListener);
+        sliderHorizontal.addChangeListener(aChangeListener);
+
+
+        sliderHorizontal.setMajorTickSpacing(5);
+        sliderHorizontal.setMinorTickSpacing(1);
+        sliderHorizontal.setPaintTicks(true);
+        sliderHorizontal.setPaintLabels(true);
+
+
+        myPanel.add(leftPanel);
+        myPanel.add(rightPanel);
+        rightPanel.add(sliderHorizontal);
+        rightPanel.add(sliderHorizontal_Label);
+
+
+        JOptionPane.showConfirmDialog(null, myPanel,
+                "Please Enter Cols and Rows Values", JOptionPane.OK_OPTION);
+
+        int ans[] = { sliderHorizontal.getValue(),sliderVertical.getValue()};//row,col
+
+        return ans;
     }
 
     public static void main(String[] arguments) {
