@@ -1,6 +1,4 @@
 import ecs100.*;
-import sun.security.provider.SHA;
-
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -161,23 +159,13 @@ public class BasicArrays {
             verticalArray1[col - 1 - i] = getColor(col, i + 1);
         }
         this.drawVerticalArray(verticalArray1);
-//        for (Color c:verticalArray1
-//             ) {
-//            UI.setColor(c);
-//            UI.fillRect(0, 0, 50, 50);
-//            UI.sleep(500);
-//
-//        }
+
 
 
     }
 
     public int askForCol() {
         JPanel myPanel = new JPanel();
-//        myPanel.setLayout(new BorderLayout());
-//        myPanel.setLayout(new FlowLayout(0));
-//        myPanel.setLayout(new GridLayout(2,2,5,5));
-//        myPanel.setLayout(new CardLayout());
         myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.X_AXIS));
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
