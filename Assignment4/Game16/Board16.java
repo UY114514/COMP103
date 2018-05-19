@@ -47,19 +47,19 @@ public class Board16 {
     public boolean isGameOver() {
         /*# YOUR CODE HERE */
 
-        if (this.numEmptyTiles() == 0) {            //If there is some space on the board left
+        if (this.numEmptyTiles() > 0) {                //If there is some space on the board left
+            System.out.println("Not over");
+            String temp = "*";
+            for (int i : board) {
+                temp += String.valueOf(i)+",";
+            }
+            System.out.println(temp);
             return false;
         } else {
-            for (int i = 0; i < board.length; i++) {//If there is no space left
-                int i1 = board[i];
-                for (int j = i; j < board.length; j++) {
-                    int i2 = board[j];
-                    if (i1 == i2) {
-                        return false;
-                    }
-
+            for (int i = 1; i < board.length; i++) {  //If there is no space left
+                if (board[i] == board[i - 1]) {
+                    return false;
                 }
-
             }
         }
 
@@ -67,7 +67,7 @@ public class Board16 {
 
 
 
-        return false;
+        return true;
     }
 
     /** Return the number of empty tiles
@@ -92,28 +92,36 @@ public class Board16 {
      */
     public void insertRandomTile() {
         /*# YOUR CODE HERE */
+        if (numEmptyTiles() == 0) {
+            return;
+        }
+
         Double randomNum = Math.random() * 10;
-        Integer result = 0;
+        Integer result;
         if (randomNum < 7) {
             result = 2;
         } else {
             result = 4;
         }
-
-        Integer emptyTilesIndex[] = new Integer[numEmptyTiles()];         //marks empty tiles index
-        int arrayIndex = 0;
-        for (Integer i : board) {
+        Integer[] emptyTilesList = new Integer[numEmptyTiles()];
+        int index1 = 0;
+        int index2 = 0;
+        for (int i : board) {
             if (i == 0) {
-                emptyTilesIndex[arrayIndex] = i;
-                arrayIndex++;
+                emptyTilesList[index2] =index1;
+                index2++;
             }
+            index1++;
         }
+        int randomEmptyTilesIndex = (int) (Math.random() * emptyTilesList.length);
 
-        Integer randomIndex =(int)(Math.random() * (numEmptyTiles()-1));  //choose a random empty tile
-        if (board != null) {
-            board[emptyTilesIndex[randomIndex]] = result;
 
-        }
+        this.board[emptyTilesList[randomEmptyTilesIndex]] = result;
+
+
+
+
+
 
 
     }
@@ -138,17 +146,22 @@ public class Board16 {
      */
     public void left() {
         /*# YOUR CODE HERE */
-        for (int i = board.length - 1; i >= 0; i--) {
-            int i1 = board[i];
-
-            if (i-->=0) {
-                if (board[i] == board[i - 1]) {//check if board[i] equals to the tile on the left side
-
-                }
+        for (int i = 0; i <board.length-1; i++) {
+            if (board[i] == board[i + 1]) {              //if current tile is equals to the tile left to it then add 'em up
+                board[i] = board[i] + board[i + 1];
+                board[i+1] = 0;                          //clear the current tile
             }
-
         }
 
+
+        for (int loop = 0; loop < board.length; loop++) {
+            for (int i = 0; i < board.length - 1; i++) {  //check if tile is movable
+                if (board[i] == 0 && board[i + 1] != 0) {
+                    board[i] = board[i + 1];              //move tiles to the left side(if can)
+                    board[i + 1] = 0;
+                }
+            }
+        }
     }
 
     /** Move the tiles right.
@@ -169,7 +182,22 @@ public class Board16 {
      */
     public void right() {
         /*# YOUR CODE HERE */
+        for (int i = board.length-1; i >0; i--) {
+            if (board[i] == board[i - 1]) {              //if current tile is equals to the tile left to it then add 'em up
+                board[i] = board[i] + board[i - 1];
+                board[i-1] = 0;                          //clear the current tile
+            }
+        }
 
+
+        for (int loop = 0; loop < board.length; loop++) {
+            for (int i = board.length - 1; i >0; i--) {  //check if tile is movable
+                if (board[i] == 0 && board[i - 1] != 0) {
+                    board[i] = board[i - 1];              //move tiles to the left side(if can)
+                    board[i - 1] = 0;
+                }
+            }
+        }
     }
 
     public String toString() {
