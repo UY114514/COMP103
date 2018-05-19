@@ -50,6 +50,7 @@ public class Game16 {
     private void move(String direction) {
         if (board == null) {
             UI.println("Board needs to be restarted.");
+
             return;
         }
 

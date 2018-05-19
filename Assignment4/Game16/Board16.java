@@ -24,57 +24,113 @@ public class Board16 {
         board = new int [COLUMNS];
     }
 
-    /** Return whether (at least) the magic target number has been achieved  
+    /** Return whether (at least) the magic target number has been achieved
      *  [CORE]
      */
     public boolean hasReachedTarget() {
         /*# YOUR CODE HERE */
-        
+        for (int i = 0; i < board.length; i++) {
+            if (board[i] >= TARGET) {
+                return true;
+            }
+        }
+        return false;
+
     }
 
-    /** Return whether the game is over (true) or not (false) 
+    /** Return whether the game is over (true) or not (false)
      *  If there is some space on the board left, the game is not over.
-     *  If there is no space left, the game is still not over, if adjacent tiles hold the same value, 
+     *  If there is no space left, the game is still not over, if adjacent tiles hold the same value,
      *  as they could be compressed to fewer tiles by a player move.
      *  [CORE]
      */
     public boolean isGameOver() {
         /*# YOUR CODE HERE */
-        
+
+        if (this.numEmptyTiles() == 0) {            //If there is some space on the board left
+            return false;
+        } else {
+            for (int i = 0; i < board.length; i++) {//If there is no space left
+                int i1 = board[i];
+                for (int j = i; j < board.length; j++) {
+                    int i2 = board[j];
+                    if (i1 == i2) {
+                        return false;
+                    }
+
+                }
+
+            }
+        }
+
+
+
+
+
+        return false;
     }
 
-    /** Return the number of empty tiles 
+    /** Return the number of empty tiles
      *  An empty tile is one which holds the value 0
      *  [CORE]
      */
     private int numEmptyTiles() {
         /*# YOUR CODE HERE */
-        
+        Integer result = 0;
+        for (int i : board) {
+            if (i == 0) {
+                result++;
+            }
+        }
+        return result;
     }
 
-    /** Insert a random number (either 2 or 4) at a randon empty tile.
+    /** Insert a random number (either 2 or 4) at a random empty tile.
      *  Note that 7 out of 10 times the number should be 2.
      *  An empty tile is one which holds the value 0.
      *  [CORE]
      */
     public void insertRandomTile() {
         /*# YOUR CODE HERE */
-        
+        Double randomNum = Math.random() * 10;
+        Integer result = 0;
+        if (randomNum < 7) {
+            result = 2;
+        } else {
+            result = 4;
+        }
+
+        Integer emptyTilesIndex[] = new Integer[numEmptyTiles()];         //marks empty tiles index
+        int arrayIndex = 0;
+        for (Integer i : board) {
+            if (i == 0) {
+                emptyTilesIndex[arrayIndex] = i;
+                arrayIndex++;
+            }
+        }
+
+        Integer randomIndex =(int)(Math.random() * (numEmptyTiles()-1));  //choose a random empty tile
+        if (board != null) {
+            board[emptyTilesIndex[randomIndex]] = result;
+
+        }
+
+
     }
 
-    /** Move the tiles left. 
-      Each time two tiles with the same number touch, the numbers are added and the two tiles merge on 
+    /** Move the tiles left.
+      Each time two tiles with the same number touch, the numbers are added and the two tiles merge on
       the left side. An empty tile is then added on the right hand side of the board.
-    
-      Examples: 
+
+      Examples:
         2 2 4 2 will give 4 4 2 0 (the first 2s merge into a 4. Then the remaining
           4 and 2 follow, and the board is completed on the right with a 0)
-          
-        4 4 2 2 will give 8 4 0 0 (4 and 4 merge into a 8, 2 and 2 merge into a 4, 
+
+        4 4 2 2 will give 8 4 0 0 (4 and 4 merge into a 8, 2 and 2 merge into a 4,
           completing with zeros on the right)
-          
+
         4 4 4 4 will give 8 8 0 0 (First two 4s merge together, the last two 4s merge together)
-    
+
         1. Shift all non-empty tiles to the left as far as possible, making sure that all empty tiles are on the right.
         2. From left to right, merge any two tiles with the same number by adding them, discarding
           the second one, and adding an empty tile on the right of the board.
@@ -82,33 +138,43 @@ public class Board16 {
      */
     public void left() {
         /*# YOUR CODE HERE */
-        
+        for (int i = board.length - 1; i >= 0; i--) {
+            int i1 = board[i];
+
+            if (i-->=0) {
+                if (board[i] == board[i - 1]) {//check if board[i] equals to the tile on the left side
+
+                }
+            }
+
+        }
+
     }
 
-    /** Move the tiles right. 
-     * Each time 2 tiles with the same number touch, the numbers are added and the two tiles merge on 
+    /** Move the tiles right.
+     * Each time 2 tiles with the same number touch, the numbers are added and the two tiles merge on
      * the right side. An empty tile is then added on the left hand side of the board.
-    
-     * Examples:  
-     *   2 2 4 2 will give 0 4 4 2 (2 and 4 remain unchanged, then the last leftmost 2s merge 
+
+     * Examples:
+     *   2 2 4 2 will give 0 4 4 2 (2 and 4 remain unchanged, then the last leftmost 2s merge
      *     into a 4, completing with a zero on the left.)
-     *     
+     *
      *   4 4 2 2 will give 0 0 8 4 (2 and 2 merge into a 4, 4 and 4 merge into a 8)
      *   4 4 4 4 will give 0 0 8 8 (First two 4s merge together, the last two 4s merge together)
-     *   
+     *
      *   1. Shift all non-empty tiles to the right, making sure that all the empty tiles are on the left.
-     *   2. From right to left, merge any two tiles with the same number by adding them, discarding 
+     *   2. From right to left, merge any two tiles with the same number by adding them, discarding
      *      the second one, and adding an empty tile on the left of the board.
      * [COMPLETION]
      */
     public void right() {
         /*# YOUR CODE HERE */
-        
+
     }
 
     public String toString() {
         String tiles = "";
-        
+
         for (int col = 0; col < COLUMNS; col++) {
             tiles += "  " + board[col];
         }
@@ -124,7 +190,7 @@ public class Board16 {
         // Clear up any eventual previous message first
         UI.setColor(Color.white);
         UI.fillRect(boardLeft, boardTop + tileSize * 2, 500, 200);
-        
+
         // Display the message
         UI.setFontSize(40);
         UI.setColor(Color.red);
@@ -136,7 +202,7 @@ public class Board16 {
         for (int col = 0; col < COLUMNS; col++) {
             drawTile(col);
         }
-        
+
         displayScore();
     }
 
@@ -154,12 +220,12 @@ public class Board16 {
 
         // Display the number
         UI.setFontSize(20);
-        if (board[col] == 0) 
+        if (board[col] == 0)
           return;
-        
-        if (board[col] >= 16) 
+
+        if (board[col] >= 16)
           UI.setColor(Color.white);
-          
+
         double x = left + tileSize * 0.3;
         double y = top + tileSize * 0.6;
         UI.drawString(""+board[col], x, y);
@@ -167,11 +233,11 @@ public class Board16 {
 
     private Color getColor(int value) {
         switch (value) {
-            case  0 : { return Color.white; }     
-            case  2 : { return Color.gray; }    
-            case  4 : { return Color.orange; }  
-            case  8 : { return Color.red; }   
-            case 16 : { return Color.cyan; }     
+            case  0 : { return Color.white; }
+            case  2 : { return Color.gray; }
+            case  4 : { return Color.orange; }
+            case  8 : { return Color.red; }
+            case 16 : { return Color.cyan; }
             case 32 : { return Color.blue; }
             case 64 : { return Color.green; }
              default: {return Color.black;}

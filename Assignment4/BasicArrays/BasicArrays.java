@@ -151,8 +151,6 @@ public class BasicArrays {
 
     public void verticalLine() {
         int col = askForCol();
-//        int col = UI.askInt("Col:");
-        //        Integer col = Integer.valueOf(JOptionPane.showInputDialog("Fuckyou"));
 
         Color[] verticalArray1 = new Color[col];
         for (int i = 0; i < col; i++) {
