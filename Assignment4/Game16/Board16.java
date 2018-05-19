@@ -15,7 +15,6 @@ public class Board16 {
 
     private static final int LIMIT = 7; // to determine the ratio of 2s over 4s (the closer to 10 the more twos)
     private static final int TARGET = 16; // number value the player needs to reach
-
     private final int COLUMNS; // size of the board
     private int [] board;
 
@@ -35,7 +34,6 @@ public class Board16 {
             }
         }
         return false;
-
     }
 
     /** Return whether the game is over (true) or not (false)
@@ -46,7 +44,6 @@ public class Board16 {
      */
     public boolean isGameOver() {
         /*# YOUR CODE HERE */
-
         if (this.numEmptyTiles() > 0) {                //If there is some space on the board left
             System.out.println("Not over");
             String temp = "*";
@@ -62,11 +59,6 @@ public class Board16 {
                 }
             }
         }
-
-
-
-
-
         return true;
     }
 
@@ -114,16 +106,7 @@ public class Board16 {
             index1++;
         }
         int randomEmptyTilesIndex = (int) (Math.random() * emptyTilesList.length);
-
-
         this.board[emptyTilesList[randomEmptyTilesIndex]] = result;
-
-
-
-
-
-
-
     }
 
     /** Move the tiles left.
@@ -152,8 +135,6 @@ public class Board16 {
                 board[i+1] = 0;                          //clear the current tile
             }
         }
-
-
         for (int loop = 0; loop < board.length; loop++) {
             for (int i = 0; i < board.length - 1; i++) {  //check if tile is movable
                 if (board[i] == 0 && board[i + 1] != 0) {
