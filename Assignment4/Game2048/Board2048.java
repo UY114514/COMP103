@@ -84,11 +84,13 @@ public class Board2048 {
         int randomIndex = (int) (Math.random() * numEmptyTiles());
         int randomNum = (int) (Math.random() * 10);
         int result;
+
         if (randomNum < 7) {
             result = 2;
         } else {
             result = 4;
         }
+
 
         int count = 0;
         for (int i = 0; i < board.length; i++) {
@@ -126,10 +128,27 @@ public class Board2048 {
      */
     public void left() {
         /*# YOUR CODE HERE */
-
-
-
-
+        for (int count = 0; count <= board.length; count++) {
+            if (count == 1) {
+                for (int row = 0; row < board.length; row++) {
+                    for (int col = 0; col < board[0].length - 1; col++) {
+                        if (board[row][col] != 0 && board[row][col] == board[row][col + 1]) {
+                            board[row][col] += board[row][col + 1];
+                            board[row][col + 1] = 0;
+                        }
+                    }
+                }
+            } else {
+                for (int row = 0; row < board.length; row++) {//move tiles
+                    for (int col = 0; col < board[0].length - 1; col++) {
+                        if (board[row][col] == 0) {
+                            board[row][col] = board[row][col + 1];
+                            board[row][col + 1] = 0;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /** Move the tiles right. 
@@ -152,7 +171,7 @@ public class Board2048 {
         /*# YOUR CODE HERE */
         for (int count = 0; count <= board.length; count++) {
             if (count == 1) {
-                for (int row = board.length - 1; row >= 0; row--) {
+                for (int row = board.length - 1; row >= 0; row--) {//add tiles
                     for (int col = board[0].length - 1; col > 0; col--) {
                         if (board[row][col] != 0 && board[row][col] == board[row][col - 1]) {
                             board[row][col] += board[row][col - 1];
@@ -160,9 +179,8 @@ public class Board2048 {
                         }
                     }
                 }
-
             } else {
-                for (int row = board.length - 1; row >= 0; row--) {
+                for (int row = board.length - 1; row >= 0; row--) {//move tiles
                     for (int col = board[0].length - 1; col > 0; col--) {
                         if (board[row][col] == 0) {
                             board[row][col] = board[row][col - 1];
@@ -170,18 +188,8 @@ public class Board2048 {
                         }
                     }
                 }
-
             }
-
         }
-
-
-
-
-
-
-
-
     }
 
     /** Move the tiles up. 
@@ -213,17 +221,8 @@ public class Board2048 {
                         }
                     }
                 }
-
             }
-
-
         }
-
-
-
-
-
-
     }
 
     /** Move the tiles down. 
@@ -258,15 +257,8 @@ public class Board2048 {
                         }
                     }
                 }
-
             }
-
-
         }
-
-
-
-
     }
 
     public String toString() {
