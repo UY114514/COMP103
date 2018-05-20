@@ -9,7 +9,10 @@
  */
 
 import ecs100.*;
+import org.omg.PortableInterceptor.INACTIVE;
+
 import java.awt.Color;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Board2048 {
@@ -30,7 +33,14 @@ public class Board2048 {
      */
     public boolean hasReachedTarget() {
         /*# YOUR CODE HERE */
-        
+        for (int[] rows : board) {
+            for (int i : rows) {
+                if (i >= 2048) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /** Return whether the game is over (true) or not (false). 
@@ -40,7 +50,11 @@ public class Board2048 {
      */
     public boolean isGameOver() {
         /*# YOUR CODE HERE */
-        
+        if (numEmptyTiles() == 0) {
+            return true;
+        }
+
+        return false;
     }
 
     /** Return the number of empty tiles. 
@@ -48,7 +62,15 @@ public class Board2048 {
      */
     private int numEmptyTiles() {
         /*# YOUR CODE HERE */
-        
+        Integer result = 0;
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board.length; col++) {
+                if (board[row][col] == 0) {
+                    result++;
+                }
+            }
+        }
+        return result;
     }
 
     /** Insert a random number (either 2 or 4) at a randon empty tile.
@@ -57,7 +79,31 @@ public class Board2048 {
      */
     public void insertRandomTile() {
         /*# YOUR CODE HERE */
-        
+        if (numEmptyTiles()==0){ return;}
+
+        int randomIndex = (int) (Math.random() * numEmptyTiles());
+        int randomNum = (int) (Math.random() * 10);
+        int result;
+        if (randomNum < 7) {
+            result = 2;
+        } else {
+            result = 4;
+        }
+
+        int count = 0;
+        for (int i = 0; i < board.length; i++) {
+             for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] == 0) {
+                    System.out.println("count = "+count+", target = "+randomIndex);
+                    if (count == randomIndex) {
+                        board[i][j] = result;
+                        System.out.println("insert "+result+" at"+i+","+j);
+                        return;
+                    }
+                    count++;
+                }
+            }
+        }
     }
 
     /** Move the tiles left. 
@@ -80,7 +126,10 @@ public class Board2048 {
      */
     public void left() {
         /*# YOUR CODE HERE */
-        
+
+
+
+
     }
 
     /** Move the tiles right. 
@@ -101,7 +150,38 @@ public class Board2048 {
      */
     public void right() {
         /*# YOUR CODE HERE */
-        
+        for (int count = 0; count <= board.length; count++) {
+            if (count == 1) {
+                for (int row = board.length - 1; row >= 0; row--) {
+                    for (int col = board[0].length - 1; col > 0; col--) {
+                        if (board[row][col] != 0 && board[row][col] == board[row][col - 1]) {
+                            board[row][col] += board[row][col - 1];
+                            board[row][col - 1] = 0;
+                        }
+                    }
+                }
+
+            } else {
+                for (int row = board.length - 1; row >= 0; row--) {
+                    for (int col = board[0].length - 1; col > 0; col--) {
+                        if (board[row][col] == 0) {
+                            board[row][col] = board[row][col - 1];
+                            board[row][col - 1] = 0;
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+
+
+
+
+
+
+
     }
 
     /** Move the tiles up. 
@@ -115,7 +195,35 @@ public class Board2048 {
      */
     public void up() {
         /*# YOUR CODE HERE */
-        
+        for (int count = 0; count <= board.length; count++) {
+            if (count == 1) {//move tile first then add'em up
+                for (int row = 0; row < board.length - 1; row++) {
+                    for (int col = 0; col < board[0].length; col++) {
+                        if (board[row][col] == board[row + 1][col] && board[row][col] != 0) {
+                            board[row][col] = board[row][col] + board[row + 1][col];
+                        }
+                    }
+                }
+            } else {
+                for (int row = 0; row < board.length - 1; row++) {
+                    for (int col = 0; col < board[0].length; col++) {
+                        if (board[row][col] == 0) {
+                            board[row][col] = board[row + 1][col];
+                            board[row + 1][col] = 0;
+                        }
+                    }
+                }
+
+            }
+
+
+        }
+
+
+
+
+
+
     }
 
     /** Move the tiles down. 
@@ -129,7 +237,36 @@ public class Board2048 {
      */
     public void down() {
         /*# YOUR CODE HERE */
-        
+        for (int count = 0; count <= board.length; count++) {
+            if (count == 1) {//move tile first then add'em up
+                for (int row = board.length - 1; row > 0; row--) {//add things up
+                    for (int col = board[0].length - 1; col >= 0; col--) {
+                        if (board[row][col] != 0 && board[row][col] == board[row - 1][col]) {
+                            board[row][col] = board[row][col] + board[row - 1][col];
+                            board[row - 1][col] = 0;
+                        }
+                    }
+                }
+            } else {
+                for (int i = 0; i < 5; i++) {
+                    for (int row = board.length - 1; row > 0; row--) {
+                        for (int col = board[0].length - 1; col >= 0; col--) {
+                            if (board[row][col] == 0) {
+                                board[row][col] = board[row - 1][col];
+                                board[row - 1][col] = 0;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+
+        }
+
+
+
+
     }
 
     public String toString() {

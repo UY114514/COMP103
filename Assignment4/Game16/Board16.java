@@ -45,12 +45,10 @@ public class Board16 {
     public boolean isGameOver() {
         /*# YOUR CODE HERE */
         if (this.numEmptyTiles() > 0) {                //If there is some space on the board left
-            System.out.println("Not over");
             String temp = "*";
             for (int i : board) {
                 temp += String.valueOf(i)+",";
             }
-            System.out.println(temp);
             return false;
         } else {
             for (int i = 1; i < board.length; i++) {  //If there is no space left

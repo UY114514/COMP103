@@ -30,7 +30,10 @@ public class Game2048 {
         startGame();
     }
 
-    /** Respond to key actions */
+    /**
+     * Respond to key actions
+     */
+
     public void doKey(String key) {
         if (key.equals("a")) move("Left");
         else if (key.equals("d")) move("Right");
@@ -79,7 +82,7 @@ public class Game2048 {
             board.up();
         else if (direction.equals("Down"))
             board.down();
-            
+        board.insertRandomTile();
         board.redraw();
 
         // Only display the "WON" message once
@@ -93,7 +96,7 @@ public class Game2048 {
 
         // Insert a new random tile
         UI.sleep(20);
-        board.insertRandomTile();
+//        board.insertRandomTile();
         board.redraw();
 
         // Check if the game is over
