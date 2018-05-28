@@ -9,11 +9,19 @@ import java.util.Stack;
  * @version 4.0
  */
 public class TowersOfHanoi {
-
-    private int     totalDisks;
-    private Stack[] tower = new Stack[4];
-
-
+    private int      totalDisks;
+    private Stack[]  tower        = new Stack[4];
+    private int      totalTowers  = 3;
+    private double   diskMaxSize  = 80.0;
+    private double   stickGap     = 100.0;
+    private int      numOfSticks  = 3;
+    private double[] stickXPos    = new double[numOfSticks + 1];
+    private double   stickLength  = 100.0;
+    private double   stickWidth   = 10.0;
+    private double   stickYPos    = 100;
+    private double   platformYPos = 200.0;
+    private double   diskHeight   = 10.0;
+    private boolean  paused       = true;
 
 
     /**
@@ -22,16 +30,35 @@ public class TowersOfHanoi {
      * @param disks the number of disks
      */
     public TowersOfHanoi(int disks) {
+        UI.addButton("Next Step", this::doNextStep);
         totalDisks = disks;
-        for(int a = 0; a <= 3; a++)
-        {
+        for (int a = 0; a <= totalTowers; a++) {        //initialize stacks
             tower[a] = new Stack<Integer>();
         }
+        for (int i = 1; i < stickXPos.length; i++) {
+            if (i == 1) {
+                stickXPos[i] = stickGap / 2;
+            } else {
+                stickXPos[i] = stickXPos[i - 1] + stickGap;
+            }
+            System.out.println(stickXPos[i]);
+        }
+        addDisks();
+        drawTower();
+        drawDisks();
+    }
 
+    public void doNextStep() {
+        paused = false;
+    }
 
-        for (int i = 0; i <= totalDisks; i++) {
+    /**
+     * Add disks to the first tower.
+     * For convenience, i starts from 1
+     */
+    public void addDisks() {
+        for (int i = 1; i <= totalDisks; i++) {
             tower[1].push(i);
-            UI.println(tower[1]);
         }
     }
 
@@ -55,6 +82,7 @@ public class TowersOfHanoi {
      */
     private void moveTower(int numDisks, int start, int end, int temp) {
         drawTower();
+        drawDisks();
         if (numDisks == 1)
             moveOneDisk(start, end);
         else {
@@ -70,26 +98,48 @@ public class TowersOfHanoi {
      *
      * @param start the starting tower
      * @param end   the ending tower
+     *              <p>
+     *              it will wait for the boolean paused
+     *              if not then sleep for 100ms
      */
     private void moveOneDisk(int start, int end) {
-        UI.println("Move one disk from " + start + " to " + end);
-        tower[end].push(tower[start].pop());
-        UI.println("T1: "+tower[1]);
-        UI.println("T2: "+tower[2]);
-        UI.println("T3: "+tower[3]);
+        while (true) {
+            if (paused) {
+                UI.sleep(100);
+            } else {
+                UI.println("Move one disk from " + start + " to " + end);
+                tower[end].push(tower[start].pop());
+                UI.clearGraphics();
+                drawDisks();
+                drawTower();
+                paused = true;
+                break;
+            }
+        }
     }
 
-
+    /**
+     * Draw the tower(3 sticks and a platform)
+     **/
     private void drawTower() {
         /*draw the tower itself*/
-        UI.drawRect(0, 200, 300, 20);
-        UI.drawRect(50, 100, 10, 100);
-        UI.drawRect(50, 100, 10, 100);
-        UI.drawRect(150, 100, 10, 100);
-        UI.drawRect(250, 100, 10, 100);
+        UI.drawRect(0, 200, 300, 20);                   //draw the platform
+        for (int i = 1; i < stickXPos.length; i++) {                           //draw sticks
+            UI.drawRect(stickXPos[i], stickYPos, stickWidth, stickLength);
+        }
     }
 
+    /**
+     * Draw disks
+     **/
     private void drawDisks() {
-
+        for (int i = 1; i < tower.length; i++) {
+            Stack stack = tower[i];
+            for (int index = 0; index < stack.size(); index++) {
+                int num = (int) stack.get(index);
+                double factor = 1 - (num - 1) / (double) (totalDisks + 1);
+                UI.fillRect(stickXPos[i] - factor * diskMaxSize / 2.0 + stickWidth / 2, platformYPos - (index + 1) * diskHeight, factor * diskMaxSize, diskHeight);
+            }
+        }
     }
 }		

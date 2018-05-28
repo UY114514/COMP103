@@ -12,7 +12,7 @@ public class SolveTowers
     public static void main(String[] args)
     {
         System.out.print('\u000C');
-        int discs = 2;
+        int discs = 4;
         TowersOfHanoi towers = new TowersOfHanoi(discs);
         System.out.println("Number of discs: " + discs);
         System.out.println("----------------------");
